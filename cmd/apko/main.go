@@ -13,7 +13,7 @@ import (
 
 	"chainguard.dev/apko/pkg/build"
 	"chainguard.dev/apko/pkg/build/types"
-	"github.com/chainguard-dev/go-apk/pkg/fs"
+	"chainguard.dev/apko/pkg/apk/fs"
 	v1 "github.com/google/go-containerregistry/pkg/v1"
 	"github.com/google/go-containerregistry/pkg/v1/empty"
 	"github.com/google/go-containerregistry/pkg/v1/mutate"
@@ -161,7 +161,7 @@ func (s *server) build(ctx context.Context, ic types.ImageConfiguration) (v1.Ima
 		build.WithImageConfiguration(ic),
 		build.WithArch(amd64), // TODO: multiarch
 		build.WithBuildDate(time.Time{}.Format(time.RFC3339)),
-		build.WithAssertions(build.RequireGroupFile(true), build.RequirePasswdFile(true)))
+	)
 	if err != nil {
 		return nil, err
 	}
